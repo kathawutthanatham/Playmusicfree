@@ -3,8 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Player</title>
+    <title>Choose a Singer</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .button-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .singer-button {
+            text-align: center;
+            cursor: pointer;
+            border: 2px solid #ccc;
+            padding: 10px;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .singer-button:hover {
+            transform: scale(1.1);
+        }
+
+        .singer-button img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .singer-button h3 {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -12,8 +44,14 @@
 
         <!-- ปุ่มเลือกนักร้อง -->
         <div class="button-container">
-            <button onclick="goToBillie()">Billie Eilish</button>
-            <button onclick="goToAriana()">Ariana Grande</button>
+            <div class="singer-button" onclick="goToBillie()">
+                <img src="https://i.pinimg.com/236x/d7/03/b8/d703b83b1df5f755d355d623599de3e8.jpg" alt="Billie Eilish">
+                <h3>Billie Eilish</h3>
+            </div>
+            <div class="singer-button" onclick="goToAriana()">
+                <img src="https://i.pinimg.com/736x/5b/03/54/5b035482641a547625808499c89447ce.jpg" alt="Ariana Grande">
+                <h3>Ariana Grande</h3>
+            </div>
         </div>
     </div>
 
