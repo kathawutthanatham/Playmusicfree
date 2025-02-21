@@ -5,45 +5,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Billie Eilish Music Player</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        .song-selection {
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        .song-button {
-            margin: 10px;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .song-button:hover {
-            background-color: #45a049;
-        }
-    </style>
 </head>
 <body>
+    <div class="player">
+        <h1>Billie Eilish Music Player</h1>
 
-    <div class="song-selection">
-        <h1>เลือกเพลงที่จะฟัง</h1>
+        <!-- ปุ่มย้อนกลับ -->
+        <button onclick="goBack()" class="back-button">ย้อนกลับ</button>
+        
+        <div class="billie-image">
+            <img src="https://i.pinimg.com/236x/2f/12/48/2f1248d5d8b4c3425f99032a1e5df946.jpg" alt="Billie Eilish" />
+        </div>
 
-        <button class="song-button" onclick="selectSong(1)">Bad Guy</button>
-        <button class="song-button" onclick="selectSong(2)">When the Party's Over</button>
-        <button class="song-button" onclick="selectSong(3)">Everything I Wanted</button>
-        <button class="song-button" onclick="selectSong(4)">bury a friend</button>
+        <!-- เพลง 1 -->
+        <div class="song">
+            <h3>Bad Guy</h3>
+            <audio controls>
+                <source src="เพลง/Billie Eilish bad guy.mp3" type="audio/mp3">
+                <button onclick="playSong('song1')">เล่น</button>
+                <button onclick="pauseSong('song1')">หยุด</button>
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        
+        <!-- เพลง 2 -->
+        <div class="song">
+            <h3>When the Party's Over</h3>
+            <audio controls>
+                <source src="เพลง/Billie Eilish when the party s over Official Music Video.mp3" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+
+        <!-- เพลง 3 -->
+        <div class="song">
+            <h3>Everything I Wanted</h3>
+            <audio controls>
+                <source src="เพลง/Billie Eilish everything i wanted Official Music Video.mp3" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+
+        <!-- เพลง 4 -->
+        <div class="song">
+            <h3>bury a friend</h3>
+            <audio controls>
+                <source src="เพลง/Billie Eilish bury a friend Official Music Video.mp3" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+
         
     </div>
 
     <script>
-        function selectSong(songNumber) {
-            // ส่งไปยังหน้าที่เล่นเพลงโดยเริ่มจากเพลงที่เลือก
-            window.location.href = `billie-eilish-player.html?song=${songNumber}`;
+        // ตัวแปรสำหรับเก็บเพลงที่กำลังเล่นอยู่
+        let currentSong = null;
+
+        // ฟังก์ชันเล่นเพลง
+        function playSong(songId) {
+            // หยุดเพลงที่กำลังเล่นอยู่
+            if (currentSong !== null) {
+                currentSong.pause();
+            }
+
+            // เรียกเพลงใหม่มาเล่น
+            const song = document.getElementById(songId);
+            song.play();
+
+            // อัปเดตเพลงที่กำลังเล่น
+            currentSong = song;
+        }
+        // ฟังก์ชันย้อนกลับไปที่หน้าแรก
+        function goBack() {
+            window.location.href = "index.html";  // เปลี่ยนเส้นทางไปหน้าแรก
         }
     </script>
-
 </body>
 </html>
