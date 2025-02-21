@@ -5,62 +5,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Billie Eilish Music Player</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* สไตล์พื้นฐาน */
+        .player {
+            text-align: center;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        video {
+            width: 100%;
+            margin-top: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+    </style>
 </head>
 <body>
     <div class="player">
         <h1>Billie Eilish Music Player</h1>
 
-        <!-- ปุ่มย้อนกลับ -->
         <button onclick="goBack()" class="back-button">ย้อนกลับ</button>
         
         <div class="billie-image">
-            <img src="https://i.pinimg.com/236x/2f/12/48/2f1248d5d8b4c3425f99032a1e5df946.jpg" alt="Billie Eilish" />
+            <img src="https://i.pinimg.com/236x/d7/03/b8/d703b83b1df5f755d355d623599de3e8.jpg" alt="Billie Eilish" />
         </div>
 
-        <!-- เพลง 1 -->
+        <!-- วิดีโอ 1 -->
         <div class="song">
             <h3>Bad Guy</h3>
-            <audio controls>
-                <source src="เพลง/Billie Eilish bad guy.mp3" type="audio/mp3">
-                Your browser does not support the audio element.
-            </audio>
+            <video controls class="video-player">
+                <source src="video/Billie Eilish - bad guy.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
         </div>
         
-        <!-- เพลง 2 -->
+        <!-- วิดีโอ 2 -->
         <div class="song">
             <h3>When the Party's Over</h3>
-            <audio controls>
-                <source src="เพลง/Billie Eilish when the party s over Official Music Video.mp3" type="audio/mp3">
-                Your browser does not support the audio element.
-            </audio>
+            <video controls class="video-player">
+                <source src="video/when_the_party_is_over.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
         </div>
 
-        <!-- เพลง 3 -->
-        <div class="song">
-            <h3>Everything I Wanted</h3>
-            <audio controls>
-                <source src="เพลง/Billie Eilish everything i wanted Official Music Video.mp3" type="audio/mp3">
-                Your browser does not support the audio element.
-            </audio>
-        </div>
-
-        <!-- เพลง 4 -->
-        <div class="song">
-            <h3>bury a friend</h3>
-            <audio controls>
-                <source src="เพลง/Billie Eilish bury a friend Official Music Video.mp3" type="audio/mp3">
-                Your browser does not support the audio element.
-            </audio>
-        </div>
-
-        
     </div>
 
     <script>
-        // ฟังก์ชันย้อนกลับไปที่หน้าแรก
         function goBack() {
-            window.location.href = "index.html";  // เปลี่ยนเส้นทางไปหน้าแรก
+            window.location.href = "index.html";
         }
+
+        // ทำให้เล่นได้ทีละวิดีโอ
+        let videos = document.querySelectorAll('.video-player');
+        
+        videos.forEach(video => {
+            video.addEventListener('play', function() {
+                videos.forEach(v => {
+                    if (v !== this) {
+                        v.pause();
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>
