@@ -131,3 +131,7 @@ button:hover {
     text-align: left;
     font-size: 18px;
 }
+
+.back-button{
+    margin-bottom: 10px;
+}
