@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billie Eilish Music Player</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .song-selection {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .song-button {
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .song-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="song-selection">
+        <h1>เลือกเพลงที่จะฟัง</h1>
+
+        <button class="song-button" onclick="selectSong(1)">Bad Guy</button>
+        <button class="song-button" onclick="selectSong(2)">When the Party's Over</button>
+        <button class="song-button" onclick="selectSong(3)">Everything I Wanted</button>
+        <button class="song-button" onclick="selectSong(4)">bury a friend</button>
+        
+    </div>
+
+    <script>
+        function selectSong(songNumber) {
+            // ส่งไปยังหน้าที่เล่นเพลงโดยเริ่มจากเพลงที่เลือก
+            window.location.href = `billie-eilish-player.html?song=${songNumber}`;
+        }
+    </script>
+
+</body>
+</html>

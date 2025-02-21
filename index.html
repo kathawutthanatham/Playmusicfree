@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Choose a Singer</title>
+    <title>Choose a Singer and Play All Songs</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         .button-container {
@@ -45,7 +45,7 @@
         <!-- ปุ่มเลือกนักร้อง -->
         <div class="button-container">
             <div class="singer-button" onclick="goToBillie()">
-                <img src="https://i.pinimg.com/236x/d7/03/b8/d703b83b1df5f755d355d623599de3e8.jpg" alt="Billie Eilish">
+                <img src="https://i.pinimg.com/236x/2f/12/48/2f1248d5d8b4c3425f99032a1e5df946.jpg" alt="Billie Eilish">
                 <h3>Billie Eilish</h3>
             </div>
             <div class="singer-button" onclick="goToAriana()">
@@ -56,12 +56,12 @@
     </div>
 
     <script>
-        // เมื่อเลือก Billie Eilish ให้ไปที่หน้าเล่นเพลงของ Billie Eilish
+        // ฟังก์ชันที่จะพาผู้ใช้ไปเล่นเพลงทั้งหมดของ Billie Eilish
         function goToBillie() {
             window.location.href = "billie-eilish-player.html";  // เปลี่ยนเส้นทางไปหน้าเล่นเพลงของ Billie
         }
 
-        // ฟังก์ชันสำหรับ Ariana Grande (หากต้องการเพิ่มหน้า)
+        // ฟังก์ชันที่จะพาผู้ใช้ไปเล่นเพลงทั้งหมดของ Ariana Grande
         function goToAriana() {
             window.location.href = "ariana-grande-player.html";  // เปลี่ยนเส้นทางไปหน้าเล่นเพลงของ Ariana
         }
