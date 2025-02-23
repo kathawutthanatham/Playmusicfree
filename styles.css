@@ -1,3 +1,20 @@
+@media (max-width: 768px) {
+    .button-container {
+        flex-direction: column; /* เรียงปุ่มเป็นแนวตั้ง */
+        align-items: center; /* จัดให้อยู่กึ่งกลาง */
+    }
+
+    .singer-button {
+        width: 80%; /* ปรับปุ่มให้กว้างขึ้นสำหรับมือถือ */
+        padding: 15px;
+    }
+
+    .singer-button img {
+        width: 120px; /* ลดขนาดรูปให้เหมาะกับมือถือ */
+        height: 120px;
+    }
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
@@ -93,7 +110,7 @@ body {
     text-align: center;
     background-color: #1c1c1c;
     color: white;
-    padding: auto;
+    padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
