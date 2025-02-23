@@ -15,7 +15,8 @@
     }
 }
 
-body {
+body{
+    margin-top: 20px;
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
     display: flex;
