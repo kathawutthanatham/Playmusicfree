@@ -1,3 +1,15 @@
+@media (max-width: 768px) {
+    .button-container {
+        flex-direction: column; /* เปลี่ยนเป็นแนวตั้ง */
+        align-items: center;
+    }
+
+    .singer-button img {
+        width: 120px;
+        height: 120px;
+    }
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
