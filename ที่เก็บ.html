@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>เว็บบันทึกข้อความและรูป</title>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; }
         #container { width: 50%; margin: auto; }
@@ -11,97 +13,102 @@
         img { max-width: 100%; margin-top: 10px; }
         .entry { border: 1px solid #ccc; padding: 10px; margin-top: 10px; position: relative; }
         .delete-btn { position: absolute; top: 5px; right: 5px; background: red; color: white; border: none; cursor: pointer; }
-        a{
-            color: red;
-        }
     </style>
 </head>
 <body>
-    <a href="index.html">กลับ</a>
     <h2>บันทึกข้อความและรูปภาพ</h2>
     <div id="container">
         <textarea id="textInput" placeholder="พิมพ์ข้อความที่นี่..."></textarea>
         <input type="file" id="imageInput" accept="image/*">
         <button onclick="saveData()">บันทึก</button>
-        <h3>ข้อมูลที่บันทึก:</h3>
+        <h3>ข้อมูลที่บันทึก🤩:</h3>
         <div id="output"></div>
     </div>
     <script>
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
         function saveData() {
             const text = document.getElementById("textInput").value;
             const file = document.getElementById("imageInput").files[0];
-            let entries = JSON.parse(localStorage.getItem("savedData")) || [];
             let entry = {};
             
             if (text) {
                 entry.text = text;
-                if (text.startsWith("http://") || text.startsWith("https://")) {
-                    entry.isLink = true;
-                }
+                entry.isLink = text.startsWith("http://") || text.startsWith("https://");
             }
             
             if (file) {
                 let reader = new FileReader();
                 reader.onload = function (e) {
                     entry.image = e.target.result;
-                    entries.push(entry);
-                    localStorage.setItem("savedData", JSON.stringify(entries));
-                    displayData();
+                    db.collection("entries").add(entry).then(() => {
+                        displayData();
+                    });
                 };
                 reader.readAsDataURL(file);
             } else {
-                entries.push(entry);
-                localStorage.setItem("savedData", JSON.stringify(entries));
-                displayData();
+                db.collection("entries").add(entry).then(() => {
+                    displayData();
+                });
             }
         }
         
         function displayData() {
             const outputDiv = document.getElementById("output");
             outputDiv.innerHTML = "";
-            let entries = JSON.parse(localStorage.getItem("savedData")) || [];
-            
-            entries.forEach((entry, index) => {
-                let entryDiv = document.createElement("div");
-                entryDiv.classList.add("entry");
-                
-                if (entry.text) {
-                    if (entry.isLink) {
-                        let linkElement = document.createElement("a");
-                        linkElement.href = entry.text;
-                        linkElement.textContent = entry.text;
-                        linkElement.target = "_blank";
-                        entryDiv.appendChild(linkElement);
-                    } else {
-                        let textElement = document.createElement("p");
-                        textElement.textContent = entry.text;
-                        entryDiv.appendChild(textElement);
+            db.collection("entries").get().then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    let entry = doc.data();
+                    let entryDiv = document.createElement("div");
+                    entryDiv.classList.add("entry");
+                    
+                    if (entry.text) {
+                        if (entry.isLink) {
+                            let linkElement = document.createElement("a");
+                            linkElement.href = entry.text;
+                            linkElement.textContent = entry.text;
+                            linkElement.target = "_blank";
+                            entryDiv.appendChild(linkElement);
+                        } else {
+                            let textElement = document.createElement("p");
+                            textElement.textContent = entry.text;
+                            entryDiv.appendChild(textElement);
+                        }
                     }
-                }
-                
-                if (entry.image) {
-                    let img = document.createElement("img");
-                    img.src = entry.image;
-                    entryDiv.appendChild(img);
-                }
-                
-                let deleteBtn = document.createElement("button");
-                deleteBtn.textContent = "ลบ";
-                deleteBtn.classList.add("delete-btn");
-                deleteBtn.onclick = function() {
-                    deleteEntry(index);
-                };
-                
-                entryDiv.appendChild(deleteBtn);
-                outputDiv.prepend(entryDiv);
+                    
+                    if (entry.image) {
+                        let img = document.createElement("img");
+                        img.src = entry.image;
+                        entryDiv.appendChild(img);
+                    }
+                    
+                    let deleteBtn = document.createElement("button");
+                    deleteBtn.textContent = "ลบ";
+                    deleteBtn.classList.add("delete-btn");
+                    deleteBtn.onclick = function() {
+                        deleteEntry(doc.id);
+                    };
+                    
+                    entryDiv.appendChild(deleteBtn);
+                    outputDiv.prepend(entryDiv);
+                });
             });
         }
         
-        function deleteEntry(index) {
-            let entries = JSON.parse(localStorage.getItem("savedData")) || [];
-            entries.splice(index, 1);
-            localStorage.setItem("savedData", JSON.stringify(entries));
-            displayData();
+        function deleteEntry(id) {
+            db.collection("entries").doc(id).delete().then(() => {
+                displayData();
+            });
         }
         
         window.onload = displayData;
